@@ -12,26 +12,33 @@ import googleImg from '../../assets/googleBttn.png';
 import { ChooseSection } from './_components/choseSection';
 import { FaArrowRightLong } from 'react-icons/fa6';
 
-// import spacedata from '../../api/data.json';
+import { RootState } from "../../store/store";
+import { useDispatch, useSelector } from 'react-redux';
+
+import { SpaceDetailModel } from '../../components/spaceDetailModel';
 
 const HomePage: React.FC = () => {
     const isMobile = useMediaQuery("(max-width: 768px)");
     const isTab = useMediaQuery('(max-width: 780px)');
     const [data, setData] = useState([]);
 
+    const pageState = useSelector((state: RootState) => state.openpage.value);
+    const spaceState = useSelector((state: RootState) => state.space.value);
+    const dispatch = useDispatch();
+
     useEffect(() => {
         const fetchData = async () => {
-          try {
-            const response = await fetch('https://raw.githubusercontent.com/MujtabaKably/bhive-interview-project-data/main/data.json');
-            const result = await response.json();
-            setData(result);
-          } catch (error) {
-            console.error('Error fetching data:', error);
-          }
+            try {
+                const response = await fetch('https://raw.githubusercontent.com/MujtabaKably/bhive-interview-project-data/main/data.json');
+                const result = await response.json();
+                setData(result);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
         };
-    
+
         fetchData();
-      }, []);
+    }, []);
 
     return (
         <div className="flex flex-col mt-[4rem] h-screen relative text-p_text">
@@ -87,6 +94,13 @@ const HomePage: React.FC = () => {
             <div className="mt-20 bg-p_text text-white flex items-center justify-center py-3">
                 <h6>© 2024 Bhive Private limited</h6>
             </div>
+
+            {pageState && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 flex items-center justify-center overflow-y-auto">
+                    <SpaceDetailModel />
+                </div>
+            )}
+
         </div>
     );
 };

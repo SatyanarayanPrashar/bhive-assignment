@@ -29,6 +29,6 @@ export interface Workspace {
     is_active: boolean;
     is_day_pass_enabled: boolean;
     day_pass_price: number;
-    day_pass_discounts_percentage: DayPassDiscountsPercentage;
+    day_pass_discounts_percentage: DayPassDiscountsPercentage | null;
     manager_id: string | null;
 }
