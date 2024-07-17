@@ -2,7 +2,6 @@ import { cn } from "../../../lib/utils";
 import { useMediaQuery } from "usehooks-ts";
 import bg1 from '../../../assets/bg-h-h.png';
 import bg2 from '../../../assets/bg-h-h-r.png';
-import videoSrc from '../../../assets/bg-h-h-v.mp4';
 import coworking from '../../../assets/coworking.png';
 
 export const HeroSection = () => {
@@ -10,8 +9,8 @@ export const HeroSection = () => {
 
     return (
         <>
-        <div className={cn("absolute w-full h-full flex gap-5 justify-between top-0", isMobile && "")}>
-            <img src={bg1} alt="" className={cn("w-[60%] h-full object-cover z-[-999]", isMobile && "hidden")}/>
+        <div className={cn("absolute w-full h-full flex gap- justify-between top-0 overflow-hidden", isMobile && "")}>
+            <img src={bg1} alt="" className={cn("w-[100%] h-[70%] object-cover z-[-999]", isMobile && "hidden")}/>
             <img src={bg2} alt="" className={cn("w-[35%] h-[70%] object-cover z-[-999]", isMobile && "w-full")}/>
         </div>
         <div className={cn("relative flex items-center justify-between bg-transparent w-full px-[120px] py-[36px]", isMobile && "px-[20px] py-[18px] flex-col-reverse px-0")}>

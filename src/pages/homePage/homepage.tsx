@@ -16,6 +16,7 @@ import { RootState } from "../../store/store";
 import { useDispatch, useSelector } from 'react-redux';
 
 import { SpaceDetailModel } from '../../components/spaceDetailModel';
+import { pageOpened } from '../../store/pageSlice';
 
 const HomePage: React.FC = () => {
     const isMobile = useMediaQuery("(max-width: 768px)");
@@ -96,10 +97,20 @@ const HomePage: React.FC = () => {
             </div>
 
             {pageState && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 flex items-center justify-center overflow-y-auto">
+                <div
+                    className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-50 flex items-center justify-center overflow-y-auto cursor-default"
+                    role="button"
+                    onClick={(e) => {
+                        // Check if the click happened on the container itself, not on the SpaceDetailModel
+                        if (e.target === e.currentTarget) {
+                            dispatch(pageOpened(!pageState));
+                        }
+                    }}
+                >
                     <SpaceDetailModel />
                 </div>
             )}
+
 
         </div>
     );
