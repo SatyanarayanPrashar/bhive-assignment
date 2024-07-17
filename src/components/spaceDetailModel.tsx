@@ -31,7 +31,7 @@ export const SpaceDetailModel: React.FC = () => {
                     <div className='flex flex-col gap-2'>
                         <h4>Amenities</h4>
                         <h6>
-                            {spaceState.amenities.map((amenity, index) => (
+                            {spaceState.amenities.map((amenity:string, index:number)  => (
                                 <p key={index}>{amenity}</p>
                             ))}
                         </h6>
