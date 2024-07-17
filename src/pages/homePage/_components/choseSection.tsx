@@ -34,7 +34,7 @@ export const ChooseSection = () => {
     const isMobile = useMediaQuery("(max-width: 768px)");
 
     return (
-        <div className={cn("px-[120px]", isMobile && "px-[20px] mt-[50px]")}>
+        <div className={cn("px-[120px] mt-[10rem]", isMobile && "px-[20px] mt-[50px]")}>
             <div className='flex justify-between items-center'>
                 <h2 className={cn("", isMobile && "text-[32px]")}>Why Choose us?</h2>
                 {isMobile && (

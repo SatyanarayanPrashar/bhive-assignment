@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navbar } from '../../components/navbar';
 import { cn } from "../../lib/utils";
 import { useMediaQuery } from "usehooks-ts";
@@ -6,31 +6,32 @@ import { HeroSection } from './_components/heroSection';
 
 import { SpaceBox } from '../../components/spacebox';
 
-import space1 from '../../assets/space1.png';
-import space2 from '../../assets/space2.png';
-import space3 from '../../assets/space3.png';
-import space4 from '../../assets/space4.png';
-import space5 from '../../assets/space5.png';
-import space6 from '../../assets/space6.png';
-
 import appImg from '../../assets/app.png';
 import appleImg from '../../assets/applebttn.png';
 import googleImg from '../../assets/googleBttn.png';
 import { ChooseSection } from './_components/choseSection';
 import { FaArrowRightLong } from 'react-icons/fa6';
 
-const spaces = [
-    { name: 'HSR Sector 6, Service Road', image: space1, tag: 'Workspace' },
-    { name: 'Indiranagar, 100 Feet Road', image: space2, tag: 'Workspace' },
-    { name: 'Koramangala, 5th Block', image: space3, tag: 'Workspace' },
-    { name: 'MG Road, Brigade Road', image: space4, tag: 'Workspace' },
-    { name: 'Whitefield, ITPL', image: space5, tag: 'Workspace' },
-    { name: 'Electronic City, Phase 1', image: space6, tag: 'Workspace' },
-];
+// import spacedata from '../../api/data.json';
 
 const HomePage: React.FC = () => {
     const isMobile = useMediaQuery("(max-width: 768px)");
     const isTab = useMediaQuery('(max-width: 780px)');
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await fetch('https://raw.githubusercontent.com/MujtabaKably/bhive-interview-project-data/main/data.json');
+            const result = await response.json();
+            setData(result);
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        };
+    
+        fetchData();
+      }, []);
 
     return (
         <div className="flex flex-col mt-[4rem] h-screen relative text-p_text">
@@ -38,7 +39,7 @@ const HomePage: React.FC = () => {
             <HeroSection />
             <ChooseSection />
 
-            <div className={cn("px-[120px]", isMobile && "px-[20px] mt-[50px]", isTab && "px-[20px] mt-[50px]")}>
+            <div className={cn("px-[120px] mt-[1rem]", isMobile && "px-[20px] mt-[50px]", isTab && "px-[20px] mt-[50px]")}>
                 <div className='flex justify-between items-center'>
                     <h2 className={cn("", isMobile ? "text-[32px]" : "text-[32px]")}>
                         {isMobile ? "Our Spaces" : "Our Space Overview"}
@@ -52,13 +53,13 @@ const HomePage: React.FC = () => {
                     'grid-cols-2': !isMobile && isTab,
                     'grid-cols-3': !isMobile && !isTab
                 })}>
-                    {spaces.map((space, index) => (
-                        <SpaceBox key={index} name={space.name} image={space.image} tag={space.tag} />
+                    {data.map((sp, index) => (
+                        <SpaceBox key={index} space={sp} />
                     ))}
                 </div>
             </div>
 
-            <div className={cn("px-[120px]", isMobile && "px-[20px] mt-[50px]")}>
+            <div className={cn("px-[120px] mt-[7rem]", isMobile && "px-[20px] mt-[50px]")}>
                 <div className='flex justify-between items-center'>
                     <h2 className={cn("", isMobile ? "text-[32px]" : "text-[32px]")}>
                         Download our app now
@@ -84,7 +85,7 @@ const HomePage: React.FC = () => {
             </div>
 
             <div className="mt-20 bg-p_text text-white flex items-center justify-center py-3">
-                <h6>c Copyright 2024. Bhive Private limited</h6>
+                <h6>© 2024 Bhive Private limited</h6>
             </div>
         </div>
     );
